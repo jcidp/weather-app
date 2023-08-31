@@ -2,11 +2,14 @@ import getForecastWeatherData from "./api";
 
 const domController = (() => {
   let units = "c";
+  let city = "NYC";
+  let weatherData;
+
   const renderPage = () => {
     const location = document.createElement("div");
     const label = document.createElement("label");
     label.setAttribute("for", "location");
-    label.textContent = "Location";
+    label.textContent = "City:";
     location.appendChild(label);
     const input = document.createElement("input");
     input.setAttribute("type", "text");
@@ -30,27 +33,38 @@ const domController = (() => {
     const container = document.createElement("section");
     container.classList.add("results-container");
     document.querySelector("body").appendChild(container);
+
+    input.focus();
+    loadSearch();
   };
 
-  const handleSearch = async () => {
+  const handleSearch = () => {
     const location = document.getElementById("location").value;
     console.log(location);
     if (!location) return;
+    city = location;
+    loadSearch();
+  };
+
+  const loadSearch = async () => {
     const btn = document.getElementById("search");
     btn.setAttribute("disabled", true);
-    const weatherData = await getForecastWeatherData(location);
+    weatherData = await getForecastWeatherData(city);
     btn.removeAttribute("disabled");
     document.getElementById("location").value = "";
     console.log(weatherData);
-    removeChildren(document.querySelector(".results-container"));
+    cleanWeatherDisplay();
     renderWeatherData(weatherData);
   };
 
   const toggleUnits = (e) => {
-    units = e.target.checked ? "c" : "f";
+    units = e.target.checked ? "f" : "c";
+    cleanWeatherDisplay();
+    renderWeatherData(weatherData);
   };
 
-  const removeChildren = (parent) => {
+  const cleanWeatherDisplay = () => {
+    const parent = document.querySelector(".results-container");
     let child = parent.firstElementChild;
     while (child) {
       parent.removeChild(child);
@@ -75,7 +89,9 @@ const domController = (() => {
     nowIcon.src = `https:${data.now.icon}`;
     nowContainer.appendChild(nowIcon);
     const nowTemp = document.createElement("p");
-    nowTemp.textContent = "Currently: " + data.now[`temp_${units}`] + "°";
+    nowTemp.textContent = `Currently: ${
+      data.now[`temp_${units}`]
+    }°${units.toUpperCase()}`;
     nowContainer.appendChild(nowTemp);
     container.appendChild(nowContainer);
 
@@ -94,12 +110,16 @@ const domController = (() => {
       dayIcon.src = `https:${data[dict[i]].icon}`;
       dayContainer.appendChild(dayIcon);
       const dayAvgTemp = document.createElement("p");
-      dayAvgTemp.textContent = "Avg: " + data[dict[i]][`temp_${units}`] + "°";
+      dayAvgTemp.textContent = `Avg: ${
+        data[dict[i]][`temp_${units}`]
+      }°${units.toUpperCase()}`;
       dayContainer.appendChild(dayAvgTemp);
       const tempRange = document.createElement("p");
-      tempRange.textContent = `${data[dict[i]][`mintemp_${units}`]}° - ${
+      tempRange.textContent = `${
+        data[dict[i]][`mintemp_${units}`]
+      }°${units.toUpperCase()} - ${
         data[dict[i]][`maxtemp_${units}`]
-      }°`;
+      }°${units.toUpperCase()}`;
       dayContainer.appendChild(tempRange);
       const rainChance = document.createElement("p");
       rainChance.textContent = `Rain chance: ${data[dict[i]].rain_chance}%`;
