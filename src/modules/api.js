@@ -7,8 +7,7 @@ async function getForecastWeatherData(location) {
     const response = await fetch(url, options);
     if (!response.ok) throw new Error("Failed to connect to API");
     const data = await response.json();
-    console.log(getDataFromAPIResponse(data));
-    return data;
+    return getDataFromAPIResponse(data);
   } catch (error) {
     console.log(error);
   }
@@ -26,14 +25,14 @@ function getDataFromAPIResponse(data) {
     obj.maxtemp_f = day.day.maxtemp_f;
     obj.rain_chance = day.day.daily_chance_of_rain;
     obj.snow_chance = day.day.daily_chance_of_snow;
-    obj.condition = day.day.condition.icon;
+    obj.icon = day.day.condition.icon;
     forecast.push(obj);
   });
   return {
     now: {
       temp_c: data.current.temp_c,
       temp_f: data.current.temp_f,
-      condition: data.current.condition.icon,
+      icon: data.current.condition.icon,
     },
     today: forecast[0],
     tomorrow: forecast[1],
