@@ -6,33 +6,38 @@ const domController = (() => {
   let weatherData;
 
   const renderPage = () => {
+    const body = document.querySelector("body");
     const location = document.createElement("div");
     const label = document.createElement("label");
     label.setAttribute("for", "location");
-    label.textContent = "City:";
-    location.appendChild(label);
+    label.textContent = "City: ";
     const input = document.createElement("input");
     input.setAttribute("type", "text");
     input.setAttribute("name", "location");
     input.setAttribute("id", "location");
     input.setAttribute("placeholder", "New York");
-    location.appendChild(input);
+    label.appendChild(input);
+    location.appendChild(label);
     const btn = document.createElement("button");
     btn.textContent = "Search";
     btn.setAttribute("id", "search");
     btn.addEventListener("click", handleSearch);
     location.appendChild(btn);
+    location.classList.add("location-input");
+    body.appendChild(location);
+
+    const toggleContainer = document.createElement("div");
+    toggleContainer.classList.add("toggle-container");
     const toggle = document.createElement("input");
     toggle.setAttribute("type", "checkbox");
     toggle.setAttribute("id", "units");
     toggle.addEventListener("click", toggleUnits);
-    location.appendChild(toggle);
-    location.classList.add("location-input");
-    document.querySelector("body").appendChild(location);
+    toggleContainer.appendChild(toggle);
+    body.appendChild(toggleContainer);
 
     const container = document.createElement("section");
     container.classList.add("results-container");
-    document.querySelector("body").appendChild(container);
+    body.appendChild(container);
 
     input.focus();
     loadSearch();

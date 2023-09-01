@@ -13,9 +13,9 @@ body {
 }
 
 .location-input {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
 
 input, button {
@@ -25,13 +25,16 @@ input, button {
 input[type="text"] {
     border-style: solid;
     padding: 0 0.5rem;
-    max-width: 10rem;
 }
 
 #search {
     border: none;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem 1rem;
     font-weight: bold;
+}
+
+#search:disabled {
+    background-color: transparent;
 }
 
 #search:hover {
@@ -39,9 +42,14 @@ input[type="text"] {
     background-color: darkgray;
 }
 
+.toggle-container {
+    display: grid;
+    place-content: center;
+    margin-top: 0.5rem;
+}
+
 input[type="checkbox"] {
     grid-column: 1 / -1;
-    margin-top: 0.5rem;
     position: relative;
 }
 /*
@@ -77,4 +85,34 @@ h2 {
 
 img {
     max-width: 48px;
+}
+
+@media (min-width: 541px) {
+    body {
+        height: calc(100svh - 2rem);
+        display: grid;
+        place-content: center;
+    }
+
+    .results-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 3rem;
+    }
+
+    .now, .results-location {
+        grid-column: 1 / -1;
+    }
+
+    .weather-container {
+        padding: 2rem 0;
+    }
+
+    p {
+        margin: 0.5rem 0;
+    }
+
+    img {
+        max-width: none;
+    }
 }
