@@ -7,6 +7,9 @@
 body {
     font-family: system-ui;
     line-height: 1.5;
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+    min-height: 100svh;
 }
 
 main {
@@ -192,8 +195,6 @@ svg {
 @media (min-width: 541px) {
     main {
         margin-top: 2em;
-        display: grid;
-        place-content: center;
     }
 
     .results-container {
@@ -218,14 +219,8 @@ svg {
         max-width: none;
     }
 
-    .loader {
+    .loader, .error {
         grid-column: 1 / -1;
         justify-self: center;
-    }
-
-    footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
     }
 }

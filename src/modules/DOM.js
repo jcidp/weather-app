@@ -2,8 +2,9 @@ import getForecastWeatherData from "./api";
 
 const domController = (() => {
   let units = "c";
-  let city = "NYC";
+  let city = "nyc";
   let weatherData;
+  let validCity = true;
 
   const renderHeader = () => {
     const header = document.createElement("header");
@@ -96,21 +97,30 @@ const domController = (() => {
 
   const handleSearch = () => {
     const location = document.getElementById("location").value;
-    console.log(location);
     if (!location) return;
     city = location;
     loadSearch();
+  };
+
+  const showError = () => {
+    validCity = false;
+    const container = document.querySelector(".results-container");
+    const errorEle = document.createElement("p");
+    errorEle.classList.add("error");
+    errorEle.textContent = `Unable to get results for "${city}". Please ensure it's a valid location spelled correctly or try again later.`;
+    container.appendChild(errorEle);
   };
 
   const loadSearch = async () => {
     const btn = document.getElementById("search");
     btn.setAttribute("disabled", true);
     renderLoader();
-    //return;
     weatherData = await getForecastWeatherData(city);
     btn.removeAttribute("disabled");
-    document.getElementById("location").value = "";
     cleanWeatherDisplay();
+    if (weatherData.name === "Error") return showError(weatherData);
+    document.getElementById("location").value = "";
+    validCity = true;
     renderWeatherData(weatherData);
   };
 
@@ -124,6 +134,7 @@ const domController = (() => {
 
   const toggleUnits = (e) => {
     units = e.target.checked ? "f" : "c";
+    if (!validCity) return;
     cleanWeatherDisplay();
     renderWeatherData(weatherData);
   };
