@@ -28,11 +28,17 @@ const domController = (() => {
 
     const toggleContainer = document.createElement("div");
     toggleContainer.classList.add("toggle-container");
+    const toggleLabel = document.createElement("label");
+    toggleLabel.classList.add("switch");
     const toggle = document.createElement("input");
     toggle.setAttribute("type", "checkbox");
     toggle.setAttribute("id", "units");
     toggle.addEventListener("click", toggleUnits);
-    toggleContainer.appendChild(toggle);
+    toggleLabel.appendChild(toggle);
+    const toggleSpan = document.createElement("span");
+    toggleSpan.classList.add("slider");
+    toggleLabel.appendChild(toggleSpan);
+    toggleContainer.appendChild(toggleLabel);
     body.appendChild(toggleContainer);
 
     const container = document.createElement("section");
@@ -63,6 +69,7 @@ const domController = (() => {
   };
 
   const toggleUnits = (e) => {
+    console.log(e.target);
     units = e.target.checked ? "f" : "c";
     cleanWeatherDisplay();
     renderWeatherData(weatherData);

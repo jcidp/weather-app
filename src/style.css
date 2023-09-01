@@ -52,17 +52,70 @@ input[type="checkbox"] {
     grid-column: 1 / -1;
     position: relative;
 }
-/*
-input[type="checkbox"]::before {
+
+/* Slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 2.5em;
+    height: 1.5em;
+    display: flex;
+    align-items: center;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #2196F3;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 1em;
+    width: 1em;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: rgb(255, 33, 33);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px rgb(255, 33, 33);
+}
+
+input:checked + .slider::before {
+    -webkit-transform: translateX(1em);
+    -ms-transform: translateX(1em);
+    transform: translateX(1em);
+}
+
+.switch::before {
     content: "°C";
     position: absolute;
-    left: -1.125rem;
-}*/
+    left: -1.25rem;
+}
 
-input[type="checkbox"]::after {
+.switch::after {
     content: "°F";
     position: absolute;
-    right: -1.085rem;
+    right: -1.125rem;
     text-align: right;
 }
 
