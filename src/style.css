@@ -52,7 +52,7 @@ input[type="text"] {
 
 #search:hover {
     cursor: pointer;
-    background-color: darkgray;
+    background-color: #ddd;
 }
 
 .toggle-container {

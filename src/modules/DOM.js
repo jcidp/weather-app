@@ -50,7 +50,7 @@ const domController = (() => {
   const renderPage = () => {
     renderHeader();
     const main = document.createElement("main");
-    const location = document.createElement("div");
+    const location = document.createElement("form");
     const label = document.createElement("label");
     label.setAttribute("for", "location");
     label.textContent = "City: ";
@@ -58,6 +58,7 @@ const domController = (() => {
     input.setAttribute("type", "text");
     input.setAttribute("name", "location");
     input.setAttribute("id", "location");
+    input.setAttribute("autocomplete", "off");
     input.setAttribute("placeholder", "New York");
     label.appendChild(input);
     location.appendChild(label);
