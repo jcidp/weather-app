@@ -60,16 +60,24 @@ const domController = (() => {
   const loadSearch = async () => {
     const btn = document.getElementById("search");
     btn.setAttribute("disabled", true);
+    renderLoader();
+    //return;
     weatherData = await getForecastWeatherData(city);
     btn.removeAttribute("disabled");
     document.getElementById("location").value = "";
-    console.log(weatherData);
     cleanWeatherDisplay();
     renderWeatherData(weatherData);
   };
 
+  const renderLoader = () => {
+    cleanWeatherDisplay();
+    const container = document.querySelector(".results-container");
+    const loader = document.createElement("span");
+    loader.classList.add("loader");
+    container.appendChild(loader);
+  };
+
   const toggleUnits = (e) => {
-    console.log(e.target);
     units = e.target.checked ? "f" : "c";
     cleanWeatherDisplay();
     renderWeatherData(weatherData);
