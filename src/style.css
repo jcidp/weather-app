@@ -7,9 +7,19 @@
 body {
     font-family: system-ui;
     line-height: 1.5;
+}
+
+main {
     width: min(70ch, 100% - 2rem);
     margin-inline: auto;
     margin-top: 0.5rem;
+}
+
+h1 {
+    text-align: center;
+    background-color: #2196F3;
+    color: white;
+    font-size: 1.25em;
 }
 
 .location-input {
@@ -161,9 +171,27 @@ img {
     max-width: 48px;
 }
 
+footer {
+    background-color: darkslategrey;
+}
+
+footer>a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    color: white;
+    fill: white;
+    text-decoration: none;
+}
+
+svg {
+    max-width: 2em;
+}
+
 @media (min-width: 541px) {
-    body {
-        height: calc(100svh - 2rem);
+    main {
+        margin-top: 2em;
         display: grid;
         place-content: center;
     }
@@ -191,8 +219,13 @@ img {
     }
 
     .loader {
-        margin-top: 0;
         grid-column: 1 / -1;
         justify-self: center;
+    }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
     }
 }

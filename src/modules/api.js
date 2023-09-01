@@ -10,6 +10,7 @@ async function getForecastWeatherData(location) {
     return getDataFromAPIResponse(data);
   } catch (error) {
     console.log(error);
+    return error;
   }
 }
 
